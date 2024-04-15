@@ -34,12 +34,32 @@ const App = () => {
     setVotes(newVotes)
   }
 
+  const mostVoted = {
+    index: 0,
+    votes: votes[0]
+  }
+
+  votes.forEach((votes, index) => {
+    if (votes > mostVoted.votes) {
+      mostVoted.index = index
+      mostVoted.votes = votes
+    }
+  })
+
   return (
     <div>
-      <div>{anecdotes[selected]}</div>
-      <div>Has {votes[selected] ?? 0} votes</div>
-      <button onClick={vote}>Vote</button>
-      <button onClick={changeAnecdote}>Next anecdote</button>
+      <article>
+        <h1>Anecdote of the day</h1>
+        <p>{anecdotes[selected]}</p>
+        <p>Has {votes[selected] ?? 0} votes</p>
+        <button onClick={vote}>Vote</button>
+        <button onClick={changeAnecdote}>Next anecdote</button>
+      </article>
+      <article>
+        <h2>Anecdote with most votes</h2>
+        <p>{anecdotes[mostVoted.index]}</p>
+        <p>Has {votes[mostVoted.index]} votes</p>
+      </article>
     </div>
   )
 }
