@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import random from './utils/random'
 
 const App = () => {
   const anecdotes = [
@@ -14,7 +15,22 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
 
-  return <div>{anecdotes[selected]}</div>
+  const changeAnecdote = () => {
+    let randomNumber = selected
+
+    while (randomNumber === selected) {
+      randomNumber = random(0, anecdotes.length - 1)
+    }
+
+    setSelected(randomNumber)
+  }
+
+  return (
+    <div>
+      <div>{anecdotes[selected]}</div>
+      <button onClick={changeAnecdote}>Next anecdote</button>
+    </div>
+  )
 }
 
 export default App
